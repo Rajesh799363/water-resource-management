@@ -2,50 +2,48 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Water Resource Management</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Water Resource Management (Frontend Only)</title>
   <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
-  <h1>🌊 Water Resource Management (ML Powered)</h1>
+  <div class="container">
+    <h1>💧 Water Resource Management</h1>
 
-  <section>
-    <h2>Add Water Data</h2>
-    <form id="dataForm">
-      <input type="number" step="0.1" id="inflow" placeholder="Inflow" required>
-      <input type="number" step="0.1" id="rainfall" placeholder="Rainfall" required>
-      <input type="number" step="0.1" id="outflow" placeholder="Outflow" required>
-      <input type="number" step="0.1" id="demand" placeholder="Demand" required>
-      <input type="date" id="date" required>
-      <button type="submit">Add</button>
-    </form>
-  </section>
+    <section class="card">
+      <h2>Add Water Source</h2>
+      <form id="sourceForm">
+        <input type="text" id="sourceName" placeholder="Source Name" required>
+        <input type="number" id="capacity" placeholder="Capacity (m³)" required>
+        <input type="number" id="initialStorage" placeholder="Initial Storage (m³)" required>
+        <button type="submit">Add Source</button>
+      </form>
+    </section>
 
-  <section>
-    <h2>Data Records</h2>
-    <button onclick="fetchData()">Refresh Data</button>
-    <table border="1" id="dataTable">
-      <thead>
-        <tr><th>ID</th><th>Inflow</th><th>Rainfall</th><th>Outflow</th><th>Demand</th><th>Date</th></tr>
-      </thead>
-      <tbody></tbody>
-    </table>
-  </section>
+    <section class="card">
+      <h2>Log Daily Data</h2>
+      <form id="logForm">
+        <select id="logSource" required></select>
+        <input type="date" id="date" required>
+        <input type="number" id="inflow" placeholder="Inflow (m³)" required>
+        <input type="number" id="rainfall" placeholder="Rainfall (mm)" required>
+        <input type="number" id="outflow" placeholder="Outflow (m³)" required>
+        <input type="number" id="demand" placeholder="Demand (m³)" required>
+        <button type="submit">Log Data</button>
+      </form>
+    </section>
 
-  <section>
-    <h2>Train Model</h2>
-    <button onclick="trainModel()">Train</button>
-  </section>
+    <section class="card">
+      <h2>Sources</h2>
+      <ul id="sourceList"></ul>
+    </section>
 
-  <section>
-    <h2>Predict Demand</h2>
-    <form id="predictForm">
-      <input type="number" step="0.1" id="pinflow" placeholder="Inflow" required>
-      <input type="number" step="0.1" id="prainfall" placeholder="Rainfall" required>
-      <input type="number" step="0.1" id="poutflow" placeholder="Outflow" required>
-      <button type="submit">Predict</button>
-    </form>
-    <p id="predictionResult"></p>
-  </section>
+    <section class="card">
+      <h2>Storage Balance</h2>
+      <canvas id="storageChart"></canvas>
+    </section>
+  </div>
 
   <script src="app.js"></script>
 </body>

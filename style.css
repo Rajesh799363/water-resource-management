@@ -1,17 +1,54 @@
 body {
   font-family: Arial, sans-serif;
-  margin: 20px;
+  margin: 0;
+  padding: 0;
+  background: #f0f9ff;
 }
+
+.container {
+  max-width: 800px;
+  margin: auto;
+  padding: 20px;
+}
+
 h1 {
-  color: #0077cc;
+  text-align: center;
 }
-section {
-  margin-bottom: 20px;
-  padding: 10px;
-  border: 1px solid #ddd;
-  border-radius: 8px;
+
+.card {
+  background: #fff;
+  padding: 15px;
+  margin: 15px 0;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
+
+form input, form select, form button {
+  margin: 5px 0;
+  padding: 8px;
+  width: 100%;
+}
+
 button {
-  padding: 6px 12px;
-  margin-top: 5px;
+  background: #0077cc;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+button:hover {
+  background: #005fa3;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+li {
+  padding: 5px;
+  background: #e6f7ff;
+  margin: 3px 0;
+  border-radius: 5px;
 }

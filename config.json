@@ -1,0 +1,76 @@
+{
+  "name": "Water Resource Management System",
+  "version": "2.0.0",
+  "description": "Professional water storage monitoring and analytics platform",
+  "author": "Your Organization",
+  "license": "MIT",
+  "keywords": ["water", "management", "monitoring", "analytics", "storage"],
+
+  "application": {
+    "title": "Water Resource Management System",
+    "theme": "blue",
+    "language": "en",
+    "timezone": "UTC",
+    "dateFormat": "YYYY-MM-DD",
+    "numberFormat": {
+      "decimals": 2,
+      "thousandSeparator": ",",
+      "decimalSeparator": "."
+    }
+  },
+
+  "features": {
+    "multipleSourceSupport": true,
+    "dataExport": true,
+    "dataImport": true,
+    "reportGeneration": true,
+    "alertSystem": true,
+    "chartAnalytics": true,
+    "dataValidation": true,
+    "localStorage": true
+  },
+
+  "defaultSettings": {
+    "alertThresholds": {
+      "lowStorage": 20,
+      "highDemand": 80,
+      "excessiveRainfall": 50
+    },
+    "units": {
+      "volume": "m³",
+      "rainfall": "mm",
+      "temperature": "°C"
+    },
+    "chartSettings": {
+      "animationDuration": 1000,
+      "showDataPoints": true,
+      "gridLines": true,
+      "legendPosition": "top"
+    }
+  },
+
+  "validation": {
+    "required": ["sourceName", "capacity", "initialStorage", "date", "inflow", "outflow", "demand", "rainfall"],
+    "minValues": {
+      "capacity": 1,
+      "initialStorage": 0,
+      "inflow": 0,
+      "outflow": 0,
+      "demand": 0,
+      "rainfall": 0
+    },
+    "maxNameLength": 100,
+    "maxNotesLength": 500
+  },
+
+  "storage": {
+    "type": "localStorage",
+    "keys": {
+      "sources": "sources",
+      "logs": "logs", 
+      "settings": "settings"
+    },
+    "autoSave": true,
+    "backupEnabled": true
+  }
+}

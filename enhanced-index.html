@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Water Resource Management System v2.0</title>
+    <link rel="stylesheet" href="enhanced-style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💧</text></svg>">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>💧 Water Resource Management System</h1>
+            <p class="subtitle">Professional water storage monitoring and analytics platform</p>
+        </header>
+
+        <!-- Statistics Dashboard -->
+        <section class="card">
+            <h2>📊 Dashboard Overview</h2>
+            <div id="statisticsContainer" class="stats-container">
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-number">0</div>
+                        <div class="stat-label">Water Sources</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">0</div>
+                        <div class="stat-label">Current Storage (m³)</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">0%</div>
+                        <div class="stat-label">Utilization Rate</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">0</div>
+                        <div class="stat-label">Avg Inflow (m³)</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Alerts Section -->
+        <section class="card">
+            <h2>🚨 System Alerts</h2>
+            <div id="alertContainer">
+                <div class="alert alert-info">System ready - no alerts at this time.</div>
+            </div>
+        </section>
+
+        <div class="grid">
+            <!-- Add Water Source -->
+            <section class="card">
+                <h2>➕ Add Water Source</h2>
+                <form id="sourceForm">
+                    <div class="form-group">
+                        <label for="sourceName">Source Name *</label>
+                        <input type="text" id="sourceName" name="sourceName" placeholder="e.g., Main Reservoir" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="sourceType">Source Type</label>
+                        <select id="sourceType" name="sourceType">
+                            <option value="reservoir">Reservoir</option>
+                            <option value="lake">Lake</option>
+                            <option value="river">River</option>
+                            <option value="groundwater">Groundwater</option>
+                            <option value="tank">Storage Tank</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="capacity">Capacity (m³) *</label>
+                        <input type="number" id="capacity" name="capacity" placeholder="e.g., 10000" min="1" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="initialStorage">Initial Storage (m³) *</label>
+                        <input type="number" id="initialStorage" name="initialStorage" placeholder="e.g., 8000" min="0" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="location">Location (Optional)</label>
+                        <input type="text" id="location" name="location" placeholder="e.g., North District">
+                    </div>
+
+                    <button type="submit" class="btn-success">Add Water Source</button>
+                </form>
+            </section>
+
+            <!-- Log Daily Data -->
+            <section class="card">
+                <h2>📝 Log Daily Data</h2>
+                <form id="logForm">
+                    <div class="form-group">
+                        <label for="logSource">Select Source *</label>
+                        <select id="logSource" name="logSource" required>
+                            <option value="">Select a water source</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="date">Date *</label>
+                        <input type="date" id="date" name="date" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="inflow">Inflow (m³) *</label>
+                        <input type="number" id="inflow" name="inflow" placeholder="Water coming in" min="0" step="0.1" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="rainfall">Rainfall (mm) *</label>
+                        <input type="number" id="rainfall" name="rainfall" placeholder="Precipitation amount" min="0" step="0.1" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="outflow">Outflow (m³) *</label>
+                        <input type="number" id="outflow" name="outflow" placeholder="Water released" min="0" step="0.1" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="demand">Demand (m³) *</label>
+                        <input type="number" id="demand" name="demand" placeholder="Water consumption" min="0" step="0.1" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="notes">Notes (Optional)</label>
+                        <input type="text" id="notes" name="notes" placeholder="Additional observations">
+                    </div>
+
+                    <button type="submit" class="btn-primary">Log Daily Data</button>
+                </form>
+            </section>
+        </div>
+
+        <!-- Water Sources List -->
+        <section class="card">
+            <h2>🏞️ Water Sources</h2>
+            <div class="source-controls">
+                <button id="exportData" class="btn-secondary">📤 Export Data</button>
+                <button id="importData" class="btn-secondary">📥 Import Data</button>
+                <button id="generateReport" class="btn-info">📊 Generate Report</button>
+                <button id="clearData" class="btn-danger">🗑️ Clear All Data</button>
+            </div>
+            <ul id="sourceList" class="source-grid">
+                <li class="no-sources">No water sources added yet. Add your first source above!</li>
+            </ul>
+        </section>
+
+        <!-- Storage Analytics Chart -->
+        <section class="card">
+            <h2>📈 Storage Analytics</h2>
+            <div class="chart-container">
+                <canvas id="storageChart"></canvas>
+            </div>
+            <div class="chart-info">
+                <p><em>This chart shows water storage levels over time for all sources. The balance calculation includes inflow, rainfall contribution (×10 multiplier), outflow, and demand.</em></p>
+            </div>
+        </section>
+
+        <!-- Settings Panel -->
+        <section class="card">
+            <h2>⚙️ System Settings</h2>
+            <form id="settingsForm">
+                <div class="grid">
+                    <div>
+                        <h3>Alert Thresholds</h3>
+                        <div class="form-group">
+                            <label for="lowStorageThreshold">Low Storage Alert (%)</label>
+                            <input type="number" id="lowStorageThreshold" name="lowStorageThreshold" value="20" min="1" max="99">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="excessRainfallThreshold">High Rainfall Alert (mm)</label>
+                            <input type="number" id="excessRainfallThreshold" name="excessRainfallThreshold" value="50" min="1">
+                        </div>
+                    </div>
+
+                    <div>
+                        <h3>Display Units</h3>
+                        <div class="form-group">
+                            <label for="volumeUnit">Volume Unit</label>
+                            <select id="volumeUnit" name="volumeUnit">
+                                <option value="m³">Cubic Meters (m³)</option>
+                                <option value="L">Liters (L)</option>
+                                <option value="gal">Gallons (gal)</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="rainfallUnit">Rainfall Unit</label>
+                            <select id="rainfallUnit" name="rainfallUnit">
+                                <option value="mm">Millimeters (mm)</option>
+                                <option value="in">Inches (in)</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn-info">Save Settings</button>
+            </form>
+        </section>
+
+        <!-- Footer -->
+        <footer class="card">
+            <p>&copy; 2024 Water Resource Management System v2.0 | Enhanced with advanced analytics and reporting features</p>
+            <p>Built with vanilla JavaScript, HTML5, and CSS3 | <strong>No server required - runs entirely in your browser</strong></p>
+        </footer>
+    </div>
+
+    <script src="enhanced-app.js"></script>
+</body>
+</html>
